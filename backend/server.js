@@ -12,14 +12,17 @@ app.use(helmet()); // Use Helmet for security headers
 
 // Custom security headers
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'");
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; frame-ancestors 'self'"
+  );
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader(
     "Strict-Transport-Security",
     "max-age=63072000; includeSubDomains; preload"
   );
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff"); // Set X-Content-Type-Options
+  res.setHeader("X-Frame-Options", "DENY"); // Set X-Frame-Options to DENY
   res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
   next();
 });
